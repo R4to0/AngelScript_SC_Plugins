@@ -886,7 +886,7 @@ void RockTheVote(CBasePlayer@ pPlayer)
   {
 
     MessageWarnPlayer(pPlayer,"You have already Rocked the Vote!");
-    MessageWarnAllPlayers(pPlayer,"" + GetRTVd() + " of " + rtvRequired + " players until vote initiates!");
+    MessageWarnAllPlayers(pPlayer, "" + pPlayer.pev.netname + " Rocked the Vote! " + GetRTVd() + " of " + rtvRequired + " players until vote initiates!");
 
   }
   else
@@ -894,7 +894,7 @@ void RockTheVote(CBasePlayer@ pPlayer)
 
     rtvdataobj.bHasRTV = true;
     MessageWarnPlayer(pPlayer,"You have Rocked the Vote!");
-    MessageWarnAllPlayers(pPlayer,"" + GetRTVd() + " of " + rtvRequired + " players until vote initiates!");
+    MessageWarnAllPlayers(pPlayer, "" + pPlayer.pev.netname + " Rocked the Vote! " + GetRTVd() + " of " + rtvRequired + " players until vote initiates!");
 
   }
 
