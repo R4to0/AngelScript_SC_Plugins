@@ -203,25 +203,18 @@ void MapInit()
 
   //Precache Sounds
   //1
-  g_Game.PrecacheGeneric("fvox/one.wav");
   g_SoundSystem.PrecacheSound("fvox/one.wav");
   //2
-  g_Game.PrecacheGeneric("fvox/two.wav");
   g_SoundSystem.PrecacheSound("fvox/two.wav");
   //3
-  g_Game.PrecacheGeneric("fvox/three.wav");
   g_SoundSystem.PrecacheSound("fvox/three.wav");
   //4
-  g_Game.PrecacheGeneric("fvox/four.wav");
   g_SoundSystem.PrecacheSound("fvox/four.wav");
   //5
-  g_Game.PrecacheGeneric("fvox/five.wav");
   g_SoundSystem.PrecacheSound("fvox/five.wav");
   //10
-  g_Game.PrecacheGeneric("puchi/spportal/tenseconds.wav");
-  g_SoundSystem.PrecacheSound("puchi/spportal/tenseconds.wav");
+  g_SoundSystem.PrecacheSound("sp_portal/tenseconds.wav");
   //Time to choose
-  g_Game.PrecacheGeneric("gman/gman_choose1.wav");
   g_SoundSystem.PrecacheSound("gman/gman_choose1.wav");
 
 }
@@ -391,7 +384,7 @@ void DecrementVoteSeconds()
   {
 
     CBasePlayer@ pPlayer = PickRandomPlayer();
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "puchi/spportal/tenseconds.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "sp_portal/tenseconds.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
