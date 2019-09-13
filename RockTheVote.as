@@ -372,7 +372,7 @@ void DecrementVoteSeconds()
       g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "gman/gman_choose1.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -383,7 +383,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 10 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "sp_portal/tenseconds.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -394,7 +394,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 5 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/five.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -405,7 +405,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 4 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/four.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -416,7 +416,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 3 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/three.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -427,7 +427,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 2 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/two.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -438,7 +438,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 1 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = PickRandomPlayer();
+    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
     g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/one.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
@@ -728,20 +728,24 @@ void CancelVote(const CCommand@ pArguments)
 
 }
 
-CBasePlayer@ PickRandomPlayer()
+EHandle PickRandomPlayer()
 {
 
   CBasePlayer@ pPlayer;
+  EHandle hEntity;
   for (int i = 1; i <= g_Engine.maxClients; i++)
   {
 
     @pPlayer = g_PlayerFuncs.FindPlayerByIndex(i);
     if ( (pPlayer !is null) && (pPlayer.IsConnected()) )
+    {
+      hEntity = EHandle(@pPlayer);
       break;
+    }
 
   }
 
-  return @pPlayer;
+  return hEntity;
 
 }
 
@@ -927,7 +931,7 @@ void VoteMenu(array<string> rtvList)
 {
 
   canRTV = true;
-  MessageWarnAllPlayers( PickRandomPlayer(), "You have " + g_VotingPeriodTime.GetInt() + " seconds to vote!");
+  MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "You have " + g_VotingPeriodTime.GetInt() + " seconds to vote!");
 
   @rtvmenu = CTextMenu(@rtv_MenuCallback);
   rtvmenu.SetTitle("RTV Vote");
@@ -1084,7 +1088,7 @@ void PostVote()
   {
 
     string chosenMap = RandomMap();
-    MessageWarnAllPlayers( PickRandomPlayer(), "\"" + chosenMap +"\" has been randomly chosen since nobody picked");
+    MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "\"" + chosenMap +"\" has been randomly chosen since nobody picked");
     ChooseMap(chosenMap, false);
     return;
 
@@ -1113,7 +1117,7 @@ void PostVote()
     {
 
       ClearVotedMaps();
-      MessageWarnAllPlayers( PickRandomPlayer(), "There was a tie! Revoting...");
+      MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "There was a tie! Revoting...");
       @g_TimeToVote = g_Scheduler.SetInterval("DecrementVoteSeconds", 1, g_VotingPeriodTime.GetInt() + 1);
       VoteMenu(candidates);
       return;
@@ -1123,7 +1127,7 @@ void PostVote()
     {
 
       string chosenMap = RandomMap(candidates);
-      MessageWarnAllPlayers( PickRandomPlayer(), "\"" + chosenMap +"\" has been randomly chosen amongst the tied");
+      MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "\"" + chosenMap +"\" has been randomly chosen amongst the tied");
       ChooseMap(chosenMap, false);
       return;
 
@@ -1134,7 +1138,7 @@ void PostVote()
       ClearVotedMaps();
       ClearRTV();
 
-      MessageWarnAllPlayers( PickRandomPlayer(), "There was a tie! Please RTV again...");
+      MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "There was a tie! Please RTV again...");
 
     }
     else
@@ -1143,7 +1147,7 @@ void PostVote()
   else
   {
 
-    MessageWarnAllPlayers( PickRandomPlayer(), "\"" + candidates[0] +"\" has been chosen!");
+    MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "\"" + candidates[0] +"\" has been chosen!");
     ChooseMap(candidates[0], false);
     return;
 
@@ -1190,7 +1194,7 @@ void ChooseMap(string chosenMap, bool forcechange)
     */
     g_EngineFuncs.ServerCommand("mp_nextmap "+ chosenMap + "\n");
     g_EngineFuncs.ServerCommand("mp_nextmap_cycle "+ chosenMap + "\n");
-    MessageWarnAllPlayers( PickRandomPlayer(), "Next map has been set to \"" + chosenMap + "\".");
+    MessageWarnAllPlayers( cast<CBasePlayer@>(PickRandomPlayer().GetEntity()), "Next map has been set to \"" + chosenMap + "\".");
 
   }
 
