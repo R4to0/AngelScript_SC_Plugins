@@ -367,13 +367,12 @@ void DecrementSeconds()
 
 void DecrementVoteSeconds()
 {
+  CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
 
-  if (secondsleftforvote == g_VotingPeriodTime.GetInt() &&
-      g_PlaySounds.GetBool())
+  if (secondsleftforvote == g_VotingPeriodTime.GetInt() && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "gman/gman_choose1.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "gman/gman_choose1.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
@@ -383,8 +382,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 10 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "sp_portal/tenseconds.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "sp_portal/tenseconds.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
@@ -394,8 +392,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 5 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/five.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/five.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
@@ -405,8 +402,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 4 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/four.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/four.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
@@ -416,8 +412,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 3 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/three.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/three.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
@@ -427,8 +422,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 2 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/two.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/two.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
@@ -438,8 +432,7 @@ void DecrementVoteSeconds()
   else if (secondsleftforvote == 1 && g_PlaySounds.GetBool())
   {
 
-    CBasePlayer@ pPlayer = cast<CBasePlayer@>(PickRandomPlayer().GetEntity());
-    g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/one.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
+    if (pPlayer !is null) g_SoundSystem.PlaySound(pPlayer.edict(), CHAN_AUTO, "fvox/one.wav", 1.0f, ATTN_NONE, 0, 100, 0, true, pPlayer.pev.origin);
 
     string msg = string(secondsleftforvote) + " seconds left to vote.";
     g_PlayerFuncs.ClientPrintAll(HUD_PRINTCENTER, msg);
